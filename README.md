@@ -117,3 +117,51 @@ export async function getServerSideProps(){
 
 }
 ```
+
+5강
+URL에 변수를 넣어서 글릭됨에 따라 넘어가도록 하기 = **Dynamic Routes**
+
+`index` 라는 페이지를 만들고 싶다면 page에 index파일을 만든다
+
+'nextJS에서 이 URL에는 변수가 필요하다는' 의미를 파일이름을 `[변수].tsx` 로 알려줄 수 있다
+
+a태그를 글씨만 감싸도록 하도록 만들고, 이미지를 눌렀을 때 처리는 따로 `router hook`을 사용해 처리한다
+
+```ts
+const router = useRouter();
+  const onClick = (id:number,title:string) => {
+    router.push({
+      pathname:`/movies/${id}`,
+      query:{
+        title
+      }
+    }, `/movies/${id}`)
+  }
+  return (
+    <div>
+      <Seo title="Home" />
+      {results?.map((movie: IMovieProps) => (
+        
+          <a>
+            <div className="movie" onClick={() => onClick(movie.id, movie.title)}>
+              <img
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              />
+              <h4>
+              <Link href={`/movies/${movie.id}`} key={movie.id}>
+                <a>{movie.original_title}{" "}</a>
+                </Link>
+                </h4>
+            </div>
+          </a>
+```
+
+`as`옵션을 사용해 URL을 마스킹할 수 있다
+
+위에서 `pathname...` 인 부분을 Link에서도 `href`로 아래와 같이 사용할 수 있다
+
+7강
+catch-all URL을 사용해서 URL을 무한대로 catch한다 = SEO에 좋게하기 위해 파일 명을 `...[id].tsx`로 해준다
+
+8강
+404만들어준다(page폴더에 404만들기)
